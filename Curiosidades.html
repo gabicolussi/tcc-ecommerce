@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Curiosidades | Floricultura Margarida</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Playfair Display", serif;
+      }
+
+      body {
+        background-color: #fff9e6;
+        color: #333;
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff9e6;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .logo {
+        font-size: 26px;
+        color: #d4a017;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .navbar {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .navbar a {
+        font-size: 18px;
+        color: #333;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .navbar a:hover {
+        color: #d4a017;
+      }
+
+      main {
+        margin-top: 160px;
+        padding: 40px;
+        max-width: 1200px;
+        margin-inline: auto;
+      }
+
+      main h1 {
+        font-size: 32px;
+        margin-bottom: 30px;
+      }
+
+      .boxcuriosidade {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 30px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+      }
+
+      .foto img {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 15px;
+      }
+
+      .titulo {
+        font-size: 24px;
+        color: #d4a017;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .btn-amei {
+        background: none;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .btn-amei.ativo {
+        color: #d4a017;
+      }
+
+      .curiosidades-clientes {
+        max-width: 700px;
+        margin: 80px auto;
+        padding: 0 20px;
+      }
+
+      .toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 32px;
+      }
+
+      #seta {
+        font-size: 20px;
+        transition: transform 0.3s ease;
+      }
+
+      .lista {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      input,
+      textarea,
+      button {
+        padding: 10px;
+        font-size: 16px;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .cupom {
+        margin-top: 15px;
+        font-weight: bold;
+        color: orange;
+      }
+
+      /* cumpom de desconto animado */
+
+      .envlope-wrapper {
+        display: none;
+  margin: 40px auto;
+      }
+
+      #envelope {
+        position: relative;
+        width: 280px;
+        height: 180px;
+  margin: 30px auto;
+        background-color: #2f6b3f;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .front {
+        position: absolute;
+        width: 0;
+        height: 0;
+        z-index: 3;
+      }
+
+      .flap {
+        border-left: 140px solid transparent;
+        border-right: 140px solid transparent;
+        border-top: 98px solid #2f6b3f;
+        transform-origin: top;
+        transition: transform 0.4s ease;
+        pointer-events: none;
+      }
+
+      .pocket {
+        border-left: 140px solid #fff9e6;
+        border-right: 140px solid #fff9e6;
+        border-bottom: 90px solid #2f6b3f;
+        border-top: 90px solid transparent;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
+
+      .letter {
+        position: relative;
+        background-color: #fff9e6;
+        width: 90%;
+        height: 90%;
+        margin: auto;
+        top: 5%;
+        border-radius: 6px;
+        box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
+        z-index: 1;
+      }
+
+      .words {
+        position: absolute;
+        left: 10%;
+        width: 80%;
+        text-align: center;
+        background-color: #fff9e6;
+        padding: 5px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+      }
+
+      .line1 {
+        top: 10%;
+        font-size: 0.7rem;
+      }
+
+      .line2 {
+        top: 30%;
+      }
+
+      .line3 {
+        top: 55%;
+      }
+
+      .line4 {
+        top: 72%;
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #2f6b3f;
+      }
+
+      .open .flap {
+        transform: rotateX(180deg);
+        z-index: 1;
+      }
+
+      .open .letter {
+        transform: translateY(-100px);
+        transition: transform 0.4s ease 0.4s;
+        z-index: 2;
+      }
+
+      .close .letter {
+        transform: translateY(0);
+        transition: transform 0.4s ease;
+      }
+
+      .a1 {
+        left: 20%;
+        animation-delay: 0s;
+      }
+
+      .a2 {
+        left: 50%;
+        animation-delay: 1s;
+      }
+
+      .a3 {
+        left: 70%;
+        animation-delay: 2s;
+      }
+
+      .reset {
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .reset button {
+        border: 2px solid #2f6b3f;
+        background: transparent;
+        color: #2f6b3f;
+        padding: 10px 20px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 25px;
+        font-weight: bold;
+      }
+
+      .reset button:hover {
+        background: #2f6b3f;
+        color: #fff9e6;
+      }
+
+      .footer {
+        background-color: #fff9e6;
+        padding: 40px 20px;
+        box-shadow: 0 -6px 15px rgba(0, 0, 0, 0.1);
+      }
+      .footer .box h3 {
+        color: #d4a017;
+        width: 100%;
+      }
+      .footer .box a {
+        gap: 6px;
+        color: #333;
+        text-decoration: none;
+      }
+
+      .footer .box a:hover {
+        color: #d4a017;
+      }
+      .footer .box {
+        display: flex;
+        gap: 50px;
+        flex-wrap: wrap;
+      }
+
+      .footer .box > * {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      @media (max-width: 768px) {
+        header {
+          padding: 15px 20px;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .navbar {
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        main {
+          padding: 20px;
+          margin-top: 200px;
+        }
+
+        main h1 {
+          font-size: 26px;
+        }
+
+        .boxcuriosidade {
+          grid-template-columns: 1fr;
+          padding: 20px;
+        }
+
+        .foto img {
+          max-height: 220px;
+        }
+
+        .toggle {
+          font-size: 26px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <a href="#" class="logo">
+        <i class="fa-solid fa-seedling"></i>
+        Floricultura Margarida
+      </a>
+
+      <nav class="navbar">
+        <a href="index.html" class="nav-link">
+          <i class="fa-solid fa-house-chimney"></i>
+          Página Inicial
+        </a>
+
+        <a href="Produtos.html" class="nav-link">
+          <i class="fa-solid fa-leaf"></i>
+          Produtos
+        </a>
+
+        <a href="Curiosidades.html" class="nav-link">
+          <i class="fa-solid fa-circle-question"></i>
+          Curiosidades
+        </a>
+
+        <a href="Carrinho.html">
+          <i class="fa-solid fa-basket-shopping"></i>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <h1><i class="fa-solid fa-circle-question"></i> Curiosidades</h1>
+
+      <div class="boxcuriosidade">
+        <div class="foto">
+          <img src="imagens/gato.jpg" alt="Gato e plantas" />
+        </div>
+
+        <div>
+          <div class="titulo">Flores Tóxicas para Gatinhos: Atenção!</div>
+
+          <div class="conteudo">
+            Algumas plantas muito bonitas podem ser perigosas para gatos, mesmo
+            em pequenas quantidades.
+            <br /><br />
+            <strong>Plantas que podem causar intoxicação:</strong><br />
+            <li>
+              Lírio – altamente tóxico, pode causar problemas graves nos rins.
+            </li>
+
+            <li>
+              Comigo ninguém pode – provoca irritação na boca e dificuldades
+              respiratórias.
+            </li>
+
+            <li>Antúrio – causa inchaço, dor e salivação excessiva.</li>
+
+            <li>Copo de Leite – pode causar vômitos e irritação.</li>
+
+            <li>Costela de Adão – tóxica se ingerida.</li>
+            <br /><br />
+            <strong>Dica:</strong> Se você tem gatinhos em casa, prefira plantas
+            seguras ou mantenha essas espécies fora do alcance.
+          </div>
+          <br />
+          <div class="amei">
+            <button
+              class="btn-amei"
+              data-id="curiosidade1"
+              onclick="curtirCuriosidade(this)"
+            >
+              <i class="fa-solid fa-heart"></i> Amei
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="boxcuriosidade">
+        <div class="foto">
+          <img src="imagens/suculentas.jpg" alt="suculentas" />
+        </div>
+
+        <div>
+          <div class="titulo">
+            Plantas Resistentes para Quem Esquece de Regar
+          </div>
+
+          <div class="conteudo">
+            Se você não tem muito tempo para cuidar, essas plantas são
+            perfeitas:
+            <br /><br />
+
+            ✔ Suculentas (Echeveria, Haworthia, Rosa de Pedra) <br />
+            ✔ Cactos (Mandacaru, Cacto Bola, Orelha de Coelho) <br />
+            ✔ Zamioculca – extremamente resistente e elegante <br />
+            ✔ Espada de São Jorge – quase indestrutível
+
+            <br /><br />
+            <strong>Dica:</strong> regue apenas quando o solo estiver seco.
+          </div>
+          <br />
+          <div class="amei">
+            <button
+              class="btn-amei"
+              data-id="curiosidade2"
+              onclick="curtirCuriosidade(this)"
+            >
+              <i class="fa-solid fa-heart"></i> Amei
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="boxcuriosidade">
+        <div class="foto">
+          <img src="imagens/prote.jpg" alt="protecao" />
+        </div>
+
+        <div>
+          <div class="titulo">Plantas para Proteção da Casa</div>
+
+          <div class="conteudo">
+            Além de decorarem, algumas plantas são conhecidas por atrair boas
+            energias e proteger o lar.
+            <br /><br />
+
+            <strong>Plantas mais populares:</strong>
+            <li>Espada de São Jorge – símbolo de proteção espiritual.</li>
+            <li>
+              Arruda – tradicionalmente usada para afastar energias negativas.
+            </li>
+            <li>Guiné – muito comum em rituais de proteção.</li>
+            <li>Manjericão – associado à harmonia e prosperidade.</li>
+            <li>Alecrim – traz sensação de bem-estar e limpeza energética.</li>
+
+            <br />
+            <strong>Onde colocar:</strong>
+            Próximo à entrada da casa ou em varandas.
+          </div>
+          <br />
+          <div class="amei">
+            <button
+              class="btn-amei"
+              data-id="curiosidade3"
+              onclick="curtirCuriosidade(this)"
+            >
+              <i class="fa-solid fa-heart"></i> Amei
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="boxcuriosidade">
+        <div class="foto">
+          <img src="imagens/liriopaz.jpg" alt="Lirio da paz" />
+        </div>
+
+        <div>
+          <div class="titulo">Planta do Ano: Lírio da Paz</div>
+
+          <div class="conteudo">
+            O Lírio da Paz é uma das plantas mais queridas para ambientes
+            internos.
+            <br /><br />
+
+            <strong>Por que ela é tão especial?</strong>
+            <li>Ajuda a melhorar a qualidade do ar.</li>
+            <li>Gosta de ambientes internos e meia-sombra.</li>
+            <li>
+              Indica quando precisa de água (as folhas murcham levemente).
+            </li>
+            <li>Representa paz, equilíbrio e tranquilidade.</li>
+
+            <br />
+            <strong>Ideal para:</strong> salas, escritórios e quartos bem
+            iluminados.
+          </div>
+          <br />
+          <div class="amei">
+            <button
+              class="btn-amei"
+              data-id="curiosidade4"
+              onclick="curtirCuriosidade(this)"
+            >
+              <i class="fa-solid fa-heart"></i> Amei
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <section class="curiosidades-clientes">
+      <h1 class="toggle" onclick="toggleCuriosidades()">
+        <i class="fa-solid fa-circle-question"></i>
+        Curiosidades dos clientes
+        <span id="seta">▶</span>
+      </h1>
+
+      <div id="listaCuriosidades" class="lista">
+        <div id="comentarios"></div>
+
+        <h3 style="margin-top: 30px">
+          Envie sua curiosidade <i class="fa-solid fa-leaf"></i>
+        </h3>
+
+        <form id="formCuriosidade">
+          <input type="text" id="nome" placeholder="Seu nome" required />
+          <textarea
+            id="texto"
+            placeholder="Conte sua curiosidade ou experiência com plantas"
+            required
+          ></textarea>
+          <button type="submit">Enviar curiosidade</button>
+        </form>
+
+        <p id="cupom" class="cupom"></p>
+      </div>
+    </section>
+
+    <div class="envlope-wrapper">
+      <div id="envelope" class="close">
+        <div class="front flap"></div>
+        <div class="front pocket"></div>
+
+        <div class="letter">
+          <div class="words line1">Para: Meu cliente fiel..</div>
+          <div class="words line2">
+            Obrigado por fazer parte da nossa comunidade!
+          </div>
+          <div class="words line3">Seu cupom de desconto:</div>
+          <div class="words line4">FLOR10</div>
+        </div>
+      </div>
+
+      <div class="reset">
+        <button id="open">Abrir</button>
+        <button id="reset">Fechar</button>
+      </div>
+    </div>
+
+    <section class="footer">
+      <div class="box">
+        <div class="coluna">
+          <h3>Links</h3>
+          <br />
+
+          <a href="index.html"
+            ><i class="fa-solid fa-house"></i> Início</a
+          >
+          <a href="Produtos.html"><i class="fa-solid fa-leaf"></i> Produtos</a>
+          <a href="Curiosidades.html"
+            ><i class="fa-solid fa-circle-question"></i> Curiosidades</a
+          >
+          <a href="Carrinho.html"
+            ><i class="fa-solid fa-basket-shopping"></i> Carrinho</a
+          >
+        </div>
+
+        <div class="coluna">
+          <h3>Localização</h3>
+          <br />
+
+          <p><i class="fa-solid fa-location-dot"></i> Porto Alegre - RS</p>
+          <p><i class="fa-solid fa-road"></i> Av. POA, 125</p>
+        </div>
+
+        <div class="coluna">
+          <h3>Contato</h3>
+          <br />
+
+          <p><i class="fa-solid fa-phone"></i> (51) 99283-8944</p>
+          <p><i class="fa-solid fa-envelope"></i> florimargarida@gmail.com</p>
+
+          <div class="social">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="criadora">
+        Floricultura Margarida • Desenvolvido por Gabriela Colussi
+      </div>
+    </section>
+
+    <script>
+      //Ter curtidas, comenatarios e cupom dos clientes e ficar salvo
+      function curtirCuriosidade(btn) {
+        const id = btn.dataset.id;
+
+        let curtidas =
+          JSON.parse(localStorage.getItem("curtidasCuriosidades")) || {};
+
+        curtidas[id] = !curtidas[id];
+
+        localStorage.setItem("curtidasCuriosidades", JSON.stringify(curtidas));
+
+        btn.classList.toggle("ativo", curtidas[id]);
+      }
+
+      function carregarCurtidasCuriosidades() {
+        const curtidas =
+          JSON.parse(localStorage.getItem("curtidasCuriosidades")) || {};
+
+        document.querySelectorAll(".btn-amei[data-id]").forEach((btn) => {
+          const id = btn.dataset.id;
+          if (curtidas[id]) {
+            btn.classList.add("ativo");
+          }
+        });
+      }
+
+      carregarCurtidasCuriosidades();
+
+      const lista = document.getElementById("listaCuriosidades");
+      const form = document.getElementById("formCuriosidade");
+      const cupom = document.getElementById("cupom");
+      if (localStorage.getItem("cupom")) {
+        cupom.textContent = "Cupom desbloqueado: FLOR10";
+        document.querySelector(".envlope-wrapper").style.display = "block";
+      }
+
+      let curiosidades = JSON.parse(localStorage.getItem("curiosidades")) || [
+        {
+          nome: "Juliana",
+          texto:
+            "Muito legal a dica dos gatinhos 🐱 Troquei o lírio por uma calatheia!",
+          like: true,
+        },
+        {
+          nome: "Fernanda",
+          texto:
+            "Amo espada de São Jorge 🌿 sinto a casa muito mais protegida.",
+          like: true,
+        },
+        {
+          nome: "Lucas",
+          texto:
+            "Comprei uma zamioculca depois das dicas e ela está perfeita 😅",
+          like: false,
+        },
+      ];
+
+      function salvar() {
+        localStorage.setItem("curiosidades", JSON.stringify(curiosidades));
+      }
+
+      const comentariosDiv = document.getElementById("comentarios");
+
+      function renderizar() {
+        comentariosDiv.innerHTML = "";
+
+        curiosidades.forEach((c, i) => {
+          comentariosDiv.innerHTML += `
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+              <p style="margin:0">
+                <strong>${c.nome}:</strong> ${c.texto}
+              </p>
+
+              <button
+                class="btn-amei ${c.like ? "ativo" : ""}"
+                onclick="curtirLike(${i})"
+              >
+                <i class="fa-solid fa-heart"></i> Amei
+              </button>
+            </div>
+          `;
+        });
+      }
+
+      function curtirLike(i) {
+        curiosidades[i].like = !curiosidades[i].like;
+        salvar();
+        renderizar();
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        curiosidades.push({
+          nome: document.getElementById("nome").value,
+          texto: document.getElementById("texto").value,
+          like: false,
+        });
+
+        salvar();
+        renderizar();
+        form.reset();
+
+        // MOSTRA TEXTO
+        cupom.textContent = "Cupom desbloqueado: FLOR10";
+
+        // SALVA CUPOM PARA O CARRINHO
+        localStorage.setItem("cupom", "FLOR10");
+
+        // MOSTRA E ABRE O ENVELOPE
+        document.querySelector(".envlope-wrapper").style.display = "block";
+        $("#envelope").addClass("open").removeClass("close");
+      });
+
+      function toggleCuriosidades() {
+        const seta = document.getElementById("seta");
+
+        if (lista.style.maxHeight) {
+          lista.style.maxHeight = null;
+          seta.style.transform = "rotate(0deg)";
+        } else {
+          lista.style.maxHeight = lista.scrollHeight + "px";
+          seta.style.transform = "rotate(90deg)";
+        }
+      }
+
+      renderizar();
+
+      /// cumpom de desconto animado
+
+      $(function () {
+        const envelope = $("#envelope");
+
+        $("#open").click(function () {
+          envelope.addClass("open").removeClass("close");
+        });
+
+        $("#reset").click(function () {
+          envelope.addClass("close").removeClass("open");
+        });
+      });
+    </script>
+  </body>
+</html>

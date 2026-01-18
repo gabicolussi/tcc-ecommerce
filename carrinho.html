@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrinho | Floricultura Margarida</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Playfair Display", serif;
+      }
+
+      body {
+        background-color: #fff9e6;
+        padding-top: 120px;
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff9e6;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+      }
+
+      .logo {
+        font-size: 30px;
+        color: #d4a017;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .navbar {
+        display: flex;
+        gap: 20px;
+      }
+
+      .navbar a {
+        font-size: 20px;
+        color: #333;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .navbar a:hover {
+        color: #d4a017;
+      }
+
+      main {
+        background: #fff;
+        padding: 40px;
+        max-width: 1200px;
+        margin: auto;
+        border-radius: 20px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .titulo {
+        font-size: 40px;
+        text-align: left;
+        margin-bottom: 40px;
+        color: #d4a017;
+      }
+
+      .content {
+         display: flex;
+  flex-direction: column;
+  gap: 30px;
+      }
+
+      section {
+        flex: 3;
+      }
+
+      aside {
+        flex: 1;
+        background: #fff9e6;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      td {
+        text-align: center;
+      }
+
+      thead th {
+        border-bottom: 3px solid #d4a017;
+        text-align: left;
+        padding-bottom: 10px;
+        text-transform: uppercase;
+        color: #333;
+      }
+
+      tbody td {
+        padding: 15px 0;
+        border-bottom: 1px solid #ddd;
+        vertical-align: middle;
+      }
+
+      .produt {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .produt img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      .nome {
+        font-weight: bold;
+      }
+
+      .cate {
+        font-size: 14px;
+        color: #777;
+      }
+
+      .qtd {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .qtd button {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+        background: transparent;
+        border: 1px solid #d4a017;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      .qtd span {
+        min-width: 30px;
+        text-align: center;
+      }
+
+      .remover {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+      }
+
+      .resumo {
+        border: 1px solid #d4a017;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .linha {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .finalizar {
+        display: inline-block;
+        padding: 12px 28px;
+        background-color: #fff9e6;
+        color: #333;
+        border-radius: 25px;
+        border: 2px solid #d4a017;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .finalizar:hover {
+        background-color: #d4a017;
+        color: white;
+      }
+      .footer {
+        background-color: #fff9e6;
+        padding: 40px 20px;
+        box-shadow: 0 -6px 15px rgba(0, 0, 0, 0.1);
+      }
+      .footer .box h3 {
+        color: #d4a017;
+        width: 100%;
+      }
+      .footer .box a {
+        gap: 6px;
+        color: #333;
+        text-decoration: none;
+      }
+
+      .footer .box a:hover {
+        color: #d4a017;
+      }
+      .footer .box {
+        display: flex;
+        gap: 50px;
+        flex-wrap: wrap;
+      }
+
+      .footer .box > * {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      @media (max-width: 900px) {
+        main {
+          padding: 20px;
+        }
+
+        table {
+          font-size: 14px;
+        }
+
+        aside {
+          margin-top: 30px;
+        }
+
+        .content {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <a href="#" class="logo">
+        <i class="fa-solid fa-seedling"></i> Floricultura Margarida
+      </a>
+
+      <nav class="navbar">
+        <a href="index.html">
+          <i class="fa-solid fa-house"></i> Página Inicial
+        </a>
+        <a href="Produtos.html"> <i class="fa-solid fa-leaf"></i> Produtos </a>
+        <a href="Curiosidades.html">
+          <i class="fa-solid fa-circle-question"></i> Curiosidades
+        </a>
+        <a href="Carrinho.html">
+          <i class="fa-solid fa-basket-shopping"></i>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="titulo">
+        <i class="fa-solid fa-basket-shopping"></i> Carrinho de Compras
+      </div>
+      <div class="content">
+        <table>
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Preço</th>
+              <th>Quantidade</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="itens-carrinho"></tbody>
+        </table>
+
+        <aside>
+          <div class="linha">
+            <span>Subtotal</span>
+            <span id="subtotal">R$ 0,00</span>
+          </div>
+          <br />
+          <div class="linha">
+            <span>Frete</span>
+            <span id="frete">Grátis</span>
+          </div>
+          <br />
+          <div class="linha" id="linha-cupom" style="display: none">
+            <span>Cupom (FLOR10)</span>
+            <span id="desconto">- R$ 10,00</span>
+          </div>
+
+          <hr />
+          <br />
+          <div class="linha">
+            <strong>Total</strong>
+            <strong id="total">R$ 0,00</strong>
+          </div>
+          <br />
+          <button class="finalizar" onclick="finalizarCompra()">
+            Finalizar compra
+          </button>
+        </aside>
+      </div>
+    </main>
+    <br />
+    <br />
+    <section class="footer">
+      <div class="box">
+        <div class="coluna">
+          <h3>Links</h3>
+          <br />
+
+          <a href="index.html"
+            ><i class="fa-solid fa-house"></i> Início</a
+          >
+          <a href="Produtos.html"><i class="fa-solid fa-leaf"></i> Produtos</a>
+          <a href="Curiosidades.html"
+            ><i class="fa-solid fa-circle-question"></i> Curiosidades</a
+          >
+          <a href="Carrinho.html"
+            ><i class="fa-solid fa-basket-shopping"></i> Carrinho</a
+          >
+        </div>
+
+        <div class="coluna">
+          <h3>Localização</h3>
+          <br />
+
+          <p><i class="fa-solid fa-location-dot"></i> Porto Alegre - RS</p>
+          <p><i class="fa-solid fa-road"></i> Av. POA, 125</p>
+        </div>
+
+        <div class="coluna">
+          <h3>Contato</h3>
+          <br />
+
+          <p><i class="fa-solid fa-phone"></i> (51) 99283-8944</p>
+          <p><i class="fa-solid fa-envelope"></i> florimargarida@gmail.com</p>
+
+          <div class="social">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="criadora">
+        Floricultura Margarida • Desenvolvido por Gabriela Colussi
+      </div>
+    </section>
+    <script>
+      // Pega todos os itens guardados no localStorage e exibe na tabela
+      function carregarCarrinho() {
+        const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+        const tbody = document.getElementById("itens-carrinho");
+        const subtotalEl = document.getElementById("subtotal");
+        const totalEl = document.getElementById("total");
+
+        tbody.innerHTML = "";
+        let subtotal = 0;
+
+        if (carrinho.length === 0) {
+          tbody.innerHTML =
+            "<tr><td colspan='5'>Seu carrinho está vazio.</td></tr>";
+          subtotalEl.innerText = "R$ 0,00";
+          totalEl.innerText = "R$ 0,00";
+          return;
+        }
+        // calcula
+        carrinho.forEach((item, index) => {
+          const totalItem = item.preco * item.quantidade;
+          subtotal += totalItem;
+          // uma linha na tabela pra cada produto
+          tbody.innerHTML += `
+            <tr>
+              <td>
+                <div class="produt">
+                  <img src="${item.imagem}" alt="${item.nome}">
+                  <div>
+                    <div class="nome">${item.nome}</div>
+                    <div class="cate">Produto</div>
+                  </div>
+                </div>
+              </td>
+    
+              <td>R$ ${item.preco.toFixed(2)}</td>
+    
+              <td>
+  <div class="qtd">
+    <button onclick="alterarQtd(${index}, -1)">-</button>
+    <span>${item.quantidade}</span>
+    <button onclick="alterarQtd(${index}, 1)">+</button>
+  </div>
+</td>
+    
+              <td>R$ ${totalItem.toFixed(2)}</td>
+    
+              <td>
+                <button class="remover" onclick="removerItem(${index})">
+                  <i class="fa-solid fa-x"></i>
+                </button>
+              </td>
+            </tr>
+          `;
+        });
+
+        // verifica se existe cupom salvo
+        const cupom = localStorage.getItem("cupom");
+        let desconto = 0;
+
+        if (cupom === "FLOR10") {
+          desconto = 10;
+          document.getElementById("linha-cupom").style.display = "flex";
+        } else {
+          document.getElementById("linha-cupom").style.display = "none";
+        }
+
+        const totalFinal = subtotal - desconto;
+
+        subtotalEl.innerText = "R$ " + subtotal.toFixed(2);
+        totalEl.innerText = "R$ " + totalFinal.toFixed(2);
+      }
+      //altera a quantidade de um produto no carrinho
+      function alterarQtd(index, valor) {
+        let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+        carrinho[index].quantidade += valor;
+
+        if (carrinho[index].quantidade < 1) {
+          carrinho[index].quantidade = 1;
+        }
+
+        localStorage.setItem("carrinho", JSON.stringify(carrinho));
+        carregarCarrinho();
+      }
+      //remover produto
+
+      function removerItem(index) {
+        let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+        carrinho.splice(index, 1);
+        localStorage.setItem("carrinho", JSON.stringify(carrinho));
+        carregarCarrinho();
+      }
+      //finalizar compra com uma mensagem de concluido
+      function finalizarCompra() {
+        alert("Sua compra foi concluída!");
+        localStorage.removeItem("carrinho");
+        localStorage.removeItem("cupom");
+        carregarCarrinho();
+      }
+carregarCarrinho();
+
+    </script>
+  </body>
+</html>
